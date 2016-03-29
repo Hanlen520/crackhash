@@ -1,11 +1,10 @@
 ﻿#!/usr/bin/python
-# -*- coding: iso-8859-1 -*-
-# -*- coding: utf-8 -*-
+#-*- coding:utf-8 -*-
 ########################################################################################################
 #
-# crackhash.py - v0.01
+# crackhash.py - v0.3 20160329
 #
-# 国外在线破解hash的小脚本。  
+# 在线破解hash的小脚本。  
 # 
 #####################################################################################################
 try:
@@ -124,10 +123,6 @@ class NETMD5CRACK:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -168,10 +163,6 @@ class BENRAMSEY:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -203,8 +194,6 @@ class GROMWEB:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
 
         if alg in self.supported_algorithm:
             return True
@@ -212,10 +201,6 @@ class GROMWEB:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -239,19 +224,12 @@ class HASHCRACKING:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -283,8 +261,6 @@ class VICTOROV:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
 
         if alg in self.supported_algorithm:
             return True
@@ -292,10 +268,6 @@ class VICTOROV:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -327,19 +299,12 @@ class THEKAINE:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -375,19 +340,12 @@ class TMTO:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -419,19 +377,12 @@ class MD5_DB:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -468,19 +419,12 @@ class MY_ADDR:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -488,7 +432,7 @@ class MY_ADDR:
         # 创建查询URL
         url = "http://md5.my-addr.com/md5_decrypt-md5_cracker_online/md5_decoder_tool.php"
 
-        # Build the parameters
+        # 创立参数，浏览器POST时发送数据的参数
         params = {"md5": hashvalue,
                   "x": 21,
                   "y": 8}
@@ -504,9 +448,13 @@ class MY_ADDR:
             return None
 
         match = search(r"<span class='middle_title'>Hashed string</span>: [^<]*</div>", html)
+		# 通过搜索进行匹配html中包含<span class='middle_title'>Hashed string</span>: [^<]*</div> 的字符串
+		# 这样操作将会得到包含密码的html代码片段
 
         if match:
             return match.group().split('span')[2][3:-6]
+			# 将匹配到的字符串以span 分割，分割2次，选取分割后的第2段（0段，1段，2段），截取第二段第4字符到倒数第六字符之间的字符串
+			# 得到的字符串便是我们的hash 被破解后的密码明文
         else:
             return None
 
@@ -517,19 +465,12 @@ class MD5PASS:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -537,7 +478,7 @@ class MD5PASS:
         # 创建查询URL
         url = self.url
 
-        # Build the parameters
+        # 创建查询URL（其中包含POST的参数）
         params = {"hash": hashvalue,
                   "get_pass": "Get Pass"}
 
@@ -550,10 +491,13 @@ class MD5PASS:
             html = response.read()
         else:
             return None
+		
+		# 此处为匹配响应的textview 中出现password结果的字符串
 
         match = search(r"Password - <b>[^<]*</b>", html)
 
         if match:
+		# 此处使用匹配对含有passwordde 字符串进行分段，取第二段中的0-倒数第二字段
             return match.group().split('b>')[1][:-2]
         else:
             return None
@@ -565,19 +509,12 @@ class MD5DECRYPTION:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -585,7 +522,7 @@ class MD5DECRYPTION:
         # 创建查询URL
         url = self.url
 
-        # Build the parameters
+        # 建立post 参数
         params = {"hash": hashvalue,
                   "submit": "Decrypt It!"}
 
@@ -598,10 +535,12 @@ class MD5DECRYPTION:
             html = response.read()
         else:
             return None
-
+		
+		# 根据响应的textview 筛选出包含密码的字符串
         match = search(r"Decrypted Text: </b>[^<]*</font>", html)
 
         if match:
+		# 对匹配到的字符串，抽取出其中的密码字段
             return match.group().split('b>')[1][:-7]
         else:
             return None
@@ -613,19 +552,12 @@ class MD5CRACK:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -633,7 +565,7 @@ class MD5CRACK:
         # 创建查询URL
         url = "http://md5crack.com/crackmd5.php"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"term": hashvalue,
                   "crackbtn": "Crack that hash baby!"}
 
@@ -661,19 +593,12 @@ class MD5_DECRYPTER:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -681,7 +606,7 @@ class MD5_DECRYPTER:
         # 创建查询URL
         url = self.url
 
-        # Build the parameters
+        # 建立post 参数
         params = {"data[Row][cripted]": hashvalue}
 
         # 进行http 网络查询
@@ -708,8 +633,6 @@ class AUTHSECUMD5:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
 
         if alg in self.supported_algorithm:
             return True
@@ -717,10 +640,6 @@ class AUTHSECUMD5:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -728,7 +647,7 @@ class AUTHSECUMD5:
         # 创建查询URL
         url = "http://www.authsecu.com/decrypter-dechiffrer-cracker-hash-md5/script-hash-md5.php"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"valeur_bouton": "dechiffrage",
                   "champ1": "",
                   "champ2": hashvalue,
@@ -759,19 +678,12 @@ class HASHCRACK:
     supported_algorithm = [MD5, SHA1, MYSQL, LM, NTLM]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -788,11 +700,11 @@ class HASHCRACK:
         else:
             hash2 = hashvalue
 
-        # Delete the possible starting '*'
+        # 删除可能出现的字符 '*'
         if alg == MYSQL and hash2[0] == '*':
             hash2 = hash2[1:]
 
-        # Build the parameters
+        # 建立post webform参数
         params = {"auth": "8272hgt",
                   "hash": hash2,
                   "string": "",
@@ -824,28 +736,20 @@ class OPHCRACK:
     supported_algorithm = [LM, NTLM]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
 
-        # Check if hashvalue has the character ':'
+        # 检查hashvalue 是否有 ':' 字符
         if ':' not in hashvalue:
             return None
-
-        # Ophcrack doesn't crack NTLM hashes. It needs a valid LM hash and this one is an empty hash.
+		#彩虹表无法破解该NTLM hash值，因为缺少一个有效的LM hash 并且 有可能是一个空值
         if hashvalue.split(':')[0] == "aad3b435b51404eeaad3b435b51404ee":
             return None
 
@@ -877,28 +781,21 @@ class C0LLISION:
     supported_algorithm = [MD5, LM, NTLM]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
 
-        # Check if hashvalue has the character ':'
+        # 检查hashvalue 是否有 ':' 字符
         if alg in [LM, NTLM] and ':' not in hashvalue:
             return None
 
-        # Look for "hash[_csrf_token]" parameter
+        # 寻找参数 "hash[_csrf_token]" 
         response = do_HTTP_request("http://www.c0llision.net/webcrack.php")
         html = None
         if response:
@@ -913,7 +810,7 @@ class C0LLISION:
         # 创建查询URL
         url = "http://www.c0llision.net/webcrack/request"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"hash[_input_]": hashvalue,
                   "hash[_csrf_token]": token}
 
@@ -937,7 +834,7 @@ class C0LLISION:
                 try:
                     doc = parseDoc(match.group())
                 except:
-                    print "INFO: You need libxml2 to use this plugin."
+                    print "提示: 需要安装 libxml2 插件."
                     return None
                 lines = doc.xpathEval("//tr")
                 for l in lines:
@@ -950,7 +847,7 @@ class C0LLISION:
                     if cols[2].content:
                         result = " > %s (%s) = %s\n" % (cols[1].content, cols[2].content, cols[3].content)
 
-                # return ( result and "\n" + result or None )
+				#返回 （结果，另起一行打印结果，或者返回空值）
                 return (result and result.split()[-1] or None)
 
         else:
@@ -968,19 +865,12 @@ class REDNOIZE:
     supported_algorithm = [MD5, SHA1]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1011,24 +901,17 @@ class CMD5:
     supported_algorithm = [MD5, NTLM]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
 
-        # Look for hidden parameters
+		#查找隐藏的参数
         response = do_HTTP_request("http://www.cmd5.org/")
         html = None
         if response:
@@ -1065,7 +948,7 @@ class CMD5:
             if ':' in hashvalue:
                 hash2 = hashvalue.split(':')[1]
 
-        # Build the parameters
+        # 建立post 参数
         params = {"__EVENTTARGET": "",
                   "__EVENTARGUMENT": "",
                   "__VIEWSTATE": viewstate,
@@ -1101,19 +984,12 @@ class AUTHSECUCISCO7:
     supported_algorithm = [CISCO7]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1121,7 +997,7 @@ class AUTHSECUCISCO7:
         # 创建查询URL and the headers
         url = "http://www.authsecu.com/decrypter-dechiffrer-cracker-password-cisco-7/script-password-cisco-7-launcher.php"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"valeur_bouton": "dechiffrage",
                   "champ1": hashvalue,
                   "dechiffrer.x": 43,
@@ -1151,19 +1027,12 @@ class CACIN:
     supported_algorithm = [CISCO7]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1195,19 +1064,12 @@ class IBEAST:
     supported_algorithm = [CISCO7]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1240,19 +1102,12 @@ class PASSWORD_DECRYPT:
     supported_algorithm = [CISCO7, JUNIPER]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1295,19 +1150,12 @@ class HASHCHECKER:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1315,7 +1163,7 @@ class HASHCHECKER:
         # 创建查询URL and the headers
         url = "http://www.hashchecker.com/index.php"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"search_field": hashvalue,
                   "Submit": "search"}
 
@@ -1343,19 +1191,12 @@ class MD5HASHCRACKER:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1363,7 +1204,7 @@ class MD5HASHCRACKER:
         # 创建查询URL
         url = "http://md5hashcracker.appspot.com/crack"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"query": hashvalue,
                   "submit": "Crack"}
 
@@ -1400,19 +1241,12 @@ class PASSCRACKING:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1420,7 +1254,7 @@ class PASSCRACKING:
         # 创建查询URL
         url = "http://passcracking.com/index.php"
 
-        # Build the parameters
+        # 建立post 参数
         boundary = "-----------------------------" + str(
             randint(1000000000000000000000000000, 9999999999999999999999999999))
         params = ['--' + boundary,
@@ -1476,19 +1310,12 @@ class ASKCHECK:
     supported_algorithm = [MD4, MD5, SHA1, SHA256]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1520,19 +1347,12 @@ class FOX21:
     supported_algorithm = [MD5, LM, NTLM]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1577,19 +1397,12 @@ class NICENAMECREW:
     supported_algorithm = [MD5, SHA1, LM]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1603,7 +1416,7 @@ class NICENAMECREW:
         # 创建查询URL
         url = "http://crackfoo.nicenamecrew.com/?t=%s" % (alg)
 
-        # Build the parameters
+        # 建立post 参数
         params = {"q": hash2,
                   "sa": "Crack"}
 
@@ -1631,8 +1444,6 @@ class JOOMLAAA:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
 
         if alg in self.supported_algorithm:
             return True
@@ -1640,10 +1451,6 @@ class JOOMLAAA:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1651,7 +1458,7 @@ class JOOMLAAA:
         # 创建查询URL
         url = "http://joomlaaa.com/component/option,com_md5/Itemid,31/"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"md5": hashvalue,
                   "decode": "Submit"}
 
@@ -1680,19 +1487,12 @@ class MD5_LOOKUP:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1724,19 +1524,12 @@ class SHA1_LOOKUP:
     supported_algorithm = [SHA1]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1768,19 +1561,12 @@ class SHA256_LOOKUP:
     supported_algorithm = [SHA256]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1812,8 +1598,6 @@ class RIPEMD160_LOOKUP:
     supported_algorithm = [RIPEMD]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
 
         if alg in self.supported_algorithm:
             return True
@@ -1821,10 +1605,6 @@ class RIPEMD160_LOOKUP:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1856,19 +1636,12 @@ class MD5_COM_CN:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1876,7 +1649,7 @@ class MD5_COM_CN:
         # 创建查询URL
         url = "http://md5.com.cn/md5reverse"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"md": hashvalue,
                   "submit": "MD5 Crack"}
 
@@ -1904,19 +1677,12 @@ class DIGITALSUN:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1924,7 +1690,7 @@ class DIGITALSUN:
         # 创建查询URL
         url = "http://md5.digitalsun.pl/"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"hash": hashvalue}
 
         # 进行http 网络查询
@@ -1951,19 +1717,12 @@ class MYINFOSEC:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -1971,7 +1730,7 @@ class MYINFOSEC:
         # 创建查询URL
         url = "http://md5.myinfosec.net/md5.php"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"md5hash": hashvalue}
 
         # 进行http 网络查询
@@ -1998,19 +1757,12 @@ class MD5_NET:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -2018,7 +1770,7 @@ class MD5_NET:
         # 创建查询URL
         url = "http://www.md5.net/cracker.php"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"hash": hashvalue}
 
         # 进行http 网络查询
@@ -2045,19 +1797,12 @@ class NOISETTE:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -2065,7 +1810,7 @@ class NOISETTE:
         # 创建查询URL
         url = "http://md5.noisette.ch/index.php"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"hash": hashvalue}
 
         # 进行http 网络查询
@@ -2092,27 +1837,20 @@ class MD5HOOD:
     supported_algorithm = [MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
-        # 检查是否支持该种算法
+    # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
 
         # 创建查询URL
         url = "http://md5hood.com/index.php/cracker/crack"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"md5": hashvalue,
                   "submit": "Go"}
 
@@ -2140,19 +1878,12 @@ class XANADREL:
     supported_algorithm = [MD4, MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -2160,7 +1891,7 @@ class XANADREL:
         # 创建查询URL
         url = "http://xanadrel.99k.org/hashes/index.php?k=search"
 
-        # Build the parameters
+        # 建立post 参数
         params = {"hash": hashvalue,
                   "search": "ok"}
 
@@ -2188,19 +1919,12 @@ class SANS:
     supported_algorithm = [MD5, SHA1]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -2211,7 +1935,7 @@ class SANS:
         # Build the Headers with a random User-Agent
         headers = {"User-Agent": USER_AGENTS[randint(0, len(USER_AGENTS)) - 1]}
 
-        # Build the parameters
+        # 建立post 参数
         response = do_HTTP_request(url, httpheaders=headers)
         html = None
         if response:
@@ -2230,7 +1954,7 @@ class SANS:
                   "word": "",
                   "submit": "Submit"}
 
-        # Build the Headers with the Referer header
+        # 使用指定的header
         headers["Referer"] = "http://isc.sans.edu/tools/reversehash.html"
 
         # 进行http 网络查询
@@ -2258,19 +1982,12 @@ class BOKEHMAN:
     supported_algorithm = [MD4, MD5]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -2278,7 +1995,7 @@ class BOKEHMAN:
         # 创建查询URL
         url = "http://bokehman.com/cracker/"
 
-        # Build the parameters from the main page
+        # 建立post 参数 from the main page
         response = do_HTTP_request(url)
         html = None
         if response:
@@ -2328,19 +2045,12 @@ class GOOG_LI:
                            LDAP_SHA1]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -2351,7 +2061,7 @@ class GOOG_LI:
         else:
             hash2 = hashvalue
 
-        # Confirm the initial '*' character
+        # 确认初始字符 '*'
         if alg == MYSQL and hash2[0] != '*':
             hash2 = '*' + hash2
 
@@ -2382,19 +2092,12 @@ class WHREPORITORY:
     supported_algorithm = [LM, NTLM]
 
     def isSupported(self, alg):
-        """Return True if HASHCRACK can crack this type of algorithm and
-		False if it cannot."""
-
         if alg in self.supported_algorithm:
             return True
         else:
             return False
 
     def crack(self, hashvalue, alg):
-        """Try to crack the hash.
-		@param hashvalue Hash to crack.
-		@param alg Algorithm to crack."""
-
         # 检查是否支持该种算法
         if not self.isSupported(alg):
             return None
@@ -2491,13 +2194,11 @@ CRAKERS = [
 
 
 ########################################################################################################
-### GENERAL METHODS
+### 生成方法
 ########################################################################################################
 
 def configureCookieProcessor (cookiefile='/tmp/searchmyhash.cookie'):
-	'''Set a Cookie Handler to accept cookies from the different Web sites.
-	
-	@param cookiefile Path of the cookie store.'''
+	#设置一个COOKIE 处理去接收不同网站的COOOKIE，并且设置其路径
 	
 	cookieHandler = LWPCookieJar()
 	if cookieHandler is not None:
@@ -2538,7 +2239,7 @@ def do_HTTP_request (url, params={}, httpheaders={}):
 def printSyntax ():
 	"""Print application syntax."""
 	
-	print """%s 0.1 ( https://github.com/ym2011/penetration )
+	print """%s 0.3 ( https://github.com/ym2011/penetration )
 
 Usage: 
 ------
@@ -2546,7 +2247,7 @@ Usage:
   python %s <加密算法> 选项
 
 
-目前支持的算法是:
+目前支持的加密算法是:
 --------------------------------------------
 
   MD4       - RFC 1320
@@ -2566,41 +2267,39 @@ Usage:
   JUNIPER   - Juniper Networks $9$ encrypted passwords
   LDAP_MD5  - MD5 Base64 encoded
   LDAP_SHA1 - SHA1 Base64 encoded
- 
-  NOTE: for LM / NTLM it is recommended to introduce both values with this format:
+  
+  备注: for LM / NTLM it is recommended to introduce both values with this format:
+  备注： 关于LM / NTLM，建议使用如下的格式
          python %s LM   -h 9a5760252b7455deaad3b435b51404ee:0d7f1f2bdeac6e574d6e18ca85fb58a7
          python %s NTLM -h 9a5760252b7455deaad3b435b51404ee:0d7f1f2bdeac6e574d6e18ca85fb58a7
 
 
-Valid OPTIONS are:
+以下是有效的选项:
 ------------------
 
-  -h <hash_value>  If you only want to crack one hash, specify its value with this option.
+  -h <hash 值>  如果只是想破解单一的hash值，可以使用该选项 和单一的hash 值
 
-  -f <file>        If you have several hashes, you can specify a file with one hash per line.
-                   NOTE: All of them have to be the same type.
+  -f <文件>     如果想破解多个hash 值， 可以使用该选项，文件中每行一个hash值，并且hash 值必须是同一种类型的
                    
-  -g               If your hash cannot be cracked, search it in Google and show all the results.
-                   NOTE: This option ONLY works with -h (one hash input) option.
 
-
-Examples:
+使用举例:
 ---------
 
-  -> Try to crack only one hash.
+  +++破解单一的hash 值
      python %s MD5 -h 098f6bcd4621d373cade4e832627b4f6
-     
-  -> Try to crack a JUNIPER encrypted password escaping special characters.
+   
+   
+  +++破解带有特定字符的JUNIPER  加密的密码
      python %s JUNIPER -h "\$9\$LbHX-wg4Z"
   
-  -> If the hash cannot be cracked, it will be searched in Google.
+  +++如果无法破解该hash值，可以翻墙进行google搜索
      python %s LDAP_SHA1 -h "{SHA}cRDtpNCeBiql5KOQsKVyrA0sAiA=" -g
    
-  -> Try to crack multiple hashes using a file (one hash per line).
+  +++破解多个hash 值，其中文件里面必须是一行一个hash值
      python %s MYSQL -f mysqlhashesfile.txt
      
 
-source:
+源代码:
 -----------------------------------
 https://github.com/ym2011/penetration
 
@@ -2609,26 +2308,20 @@ https://github.com/ym2011/penetration
 
 
 def crackHash (algorithm, hashvalue=None, hashfile=None):
-	"""Crack a hash or all the hashes of a file.
-	
-	@param alg Algorithm of the hash (MD5, SHA1...).
-	@param hashvalue Hash value to be cracked.
-	@param hashfile Path of the hash file.
-	@return If the hash has been cracked or not."""
 	
 	global CRAKERS
 	
-	# Cracked hashes will be stored here
+	#已被破解的hashes 存储
 	crackedhashes = []
 	
-	# Is the hash cracked?
+	# 检查是否能够被破解?
 	cracked = False
 	
-	# Only one of the two possible inputs can be setted.
+	# 是否为有效输入.
 	if (not hashvalue and not hashfile) or (hashvalue and hashfile):
 		return False
 	
-	# hashestocrack depends on the input value
+	#
 	hashestocrack = None
 	if hashvalue:
 		hashestocrack = [ hashvalue ]
@@ -2636,44 +2329,44 @@ def crackHash (algorithm, hashvalue=None, hashfile=None):
 		try:
 			hashestocrack = open (hashfile, "r")
 		except:
-			print "\nIt is not possible to read input file (%s)\n" % (hashfile)
+			print "\n无法读取输入的文件： (%s)\n请检查是否存在权限问题\n" % (hashfile)
 			return cracked
 	
 	
-	# Try to crack all the hashes...
+	# 尝试破恶疾所有hashes...
 	for activehash in hashestocrack:
 		hashresults = []
 		
-		# Standarize the hash
+		# 规范hash
 		activehash = activehash.strip()
 		if algorithm not in [JUNIPER, LDAP_MD5, LDAP_SHA1]:
 			activehash = activehash.lower()
 		
-		# Initial message
-		print "\nCracking hash: %s\n" % (activehash)
+		# 输出提示信息
+		print "\n正在破解hash: %s\n请稍等! ^-^ !" % (activehash)
 
-		# Each loop starts for a different start point to try to avoid IP filtered
-		begin = randint(0, len(CRAKERS ) -1)
+
+		begin = randint(0, len(CRAKERS)-1)
 		
 		for i in range(len(CRAKERS)):
 			
-			# Select the cracker
-			cr = CRAKERS[ ( i +begin ) %len(CRAKERS) ]()
+			# 选择网站去破解这些密文
+			cr = CRAKERS[ (i+begin)%len(CRAKERS) ]()
 			
-			# Check if the cracker support the algorithm
+			# 检查网站是否支持破解这种加密算法
 			if not cr.isSupported ( algorithm ):
 				continue
 			
-			# Analyze the hash
-			print "Analyzing with %s (%s)..." % (cr.name, cr.url)
+			# 正在分析 hash
+			print "正在分析 %s (%s)..." % (cr.name, cr.url)
 			
-			# Crack the hash
+			# 破解hash
 			result = None
 			try:
 				result = cr.crack ( activehash, algorithm )
-			# If it was some trouble, exit
+			# 如果有问题，提示出错信息
 			except:
-				print "\nSomething was wrong. Please, contact with us to report the bug:\n\nbloglaxmarcaellugar@gmail.com\n"
+				print "\n网络连接出错，请重试！\n或者留言到我的Github ：\nhttps://github.com/ym2011/crackhash"
 				if hashfile:
 					try:
 						hashestocrack.close()
@@ -2681,160 +2374,94 @@ def crackHash (algorithm, hashvalue=None, hashfile=None):
 						pass
 				return False
 			
-			# If there is any result...
+			# 看看是否有结果
 			cracked = 0
 			if result:
 				
-				# If it is a hashlib supported algorithm...
+				# 看看能够支持该种加密算法...
 				if algorithm in [MD4, MD5, SHA1,  SHA224, SHA384, SHA256, SHA512, RIPEMD]:
-					# Hash value is calculated to compare with cracker result
+					# 重新计算hash 值，以便和得到的结果进行比较
 					h = hashlib.new (algorithm)
 					h.update (result)
 					
-					# If the calculated hash is the same to cracker result, the result is correct (finish!)
+					# 如果计算后的值和通过网站获得的值是一致的，证明破解成果
 					if h.hexdigest() == activehash:
 						hashresults.append (result)
 						cracked = 2
 				
-				# If it is a half-supported hashlib algorithm
+				# 检查是否存在 hashlib 算法
 				elif algorithm in [LDAP_MD5, LDAP_SHA1]:
 					alg = algorithm.split('_')[1]
 					ahash =  decodestring ( activehash.split('}')[1] )
 					
-					# Hash value is calculated to compare with cracker result
+					# 重新计算hash 值，以便和得到的结果进行比较
 					h = hashlib.new (alg)
 					h.update (result)
 					
-					# If the calculated hash is the same to cracker result, the result is correct (finish!)
+					# 如果计算后的值和通过网站获得的值是一致的，证明破解成果
 					if h.digest() == ahash:
 						hashresults.append (result)
 						cracked = 2
 				
-				# If it is a NTLM hash
+				# 如果是NTLM hash
 				elif algorithm == NTLM or (algorithm == LM and ':' in activehash):
-					# NTLM Hash value is calculated to compare with cracker result
+					# 重新计算NTLM Hash值，以便和得到的结果进行比较
 					candidate = hashlib.new('md4', result.split()[-1].encode('utf-16le')).hexdigest()
 					
-					# It's a LM:NTLM combination or a single NTLM hash
-					if (':' in activehash and candidate == activehash.split(':')[1]) or \
-                            (':' not in activehash and candidate == activehash):
-                        hashresults.append(result)
-                        cracked = 2
-
-                # If it is another algorithm, we search in all the crackers
-                else:
-                    hashresults.append(result)
-                    cracked = 1
-
-            # Had the hash cracked?
-            if cracked:
-                print "\n***** HASH CRACKED!! *****\nThe original string is: %s\n" % (result)
-                # If result was verified, break
-                if cracked == 2:
-                    break
-            else:
-                print "... hash not found in %s\n" % (cr.name)
-
-        # Store the result/s for later...
-        if hashresults:
-
-            # With some hash types, it is possible to have more than one result,
-            # Repited results are deleted and a single string is constructed.
-            resultlist = []
-            for r in hashresults:
-                # if r.split()[-1] not in resultlist:
-                # resultlist.append (r.split()[-1])
-                if r not in resultlist:
-                    resultlist.append(r)
-
-            finalresult = ""
-            if len(resultlist) > 1:
-                finalresult = ', '.join(resultlist)
-            else:
-                finalresult = resultlist[0]
-
-            # Valid results are stored
-            crackedhashes.append((activehash, finalresult))
-
-    # Loop is finished. File can need to be closed
-    if hashfile:
-        try:
-            hashestocrack.close()
-        except:
-            pass
-
-    # Show a resume of all the cracked hashes
-    print "\nThe following hashes were cracked:\n----------------------------------\n"
-    print crackedhashes and "\n".join(
-            "%s -> %s" % (hashvalue, result.strip()) for hashvalue, result in crackedhashes) or "NO HASH WAS CRACKED."
-    print
-
-    return cracked
-
-
-def searchHash(hashvalue):
-    '''Google the hash value looking for any result which could give some clue...
+					# 如果是LM:NTLM 或者单个 NTLM hash
+					if (':' in activehash and candidate == activehash.split(':')[1]) or (':' not in activehash and candidate == activehash):
+						hashresults.append (result)
+						cracked = 2
+				
+				# 如果是另外的加密算法，搜索所有的列表中的网站
+				else:
+					hashresults.append (result)
+					cracked = 1
+			
+			# 是否破解hash?
+			if cracked:
+				print "\n***** HASH 破解成功!! *****\n破解后的明文是: %s\n" % (result)
+				# 如果结果确定下来，便终止
+				if cracked == 2:
+					break
+			else:
+				print "...无法在该网站进行破解 %s\n" % (cr.name)
+		
+		
+		# 存储结果，以便后用...
+		if hashresults:
+			
+			
+			resultlist = []
+			for r in hashresults:
+				#if r.split()[-1] not in resultlist:
+					#resultlist.append (r.split()[-1])
+				if r not in resultlist:
+					resultlist.append (r)
+					
+			finalresult = ""
+			if len(resultlist) > 1:
+				finalresult = ', '.join (resultlist)
+			else:
+				finalresult = resultlist[0]
+			
+			# 破解后的hash存储
+			crackedhashes.append ( (activehash, finalresult) )
 	
-	@param hashvalue The hash is been looking for.'''
-
-    start = 0
-    finished = False
-    results = []
-
-    sys.stdout.write("\nThe hash wasn't found in any database. Maybe Google has any idea...\nLooking for results...")
-    sys.stdout.flush()
-
-    while not finished:
-
-        sys.stdout.write('.')
-        sys.stdout.flush()
-
-        # 创建查询URL
-        url = "http://www.google.com/search?hl=en&q=%s&filter=0" % (hashvalue)
-        if start:
-            url += "&start=%d" % (start)
-
-        # Build the Headers with a random User-Agent
-        headers = {"User-Agent": USER_AGENTS[randint(0, len(USER_AGENTS)) - 1]}
-
-        # Send the request
-        response = do_HTTP_request(url, httpheaders=headers)
-
-        # Extract the results ...
-        html = None
-        if response:
-            html = response.read()
-        else:
-            continue
-
-        resultlist = findall(r'<a href="[^"]*?" class=l', html)
-
-        # ... saving only new ones
-        new = False
-        for r in resultlist:
-            url_r = r.split('"')[1]
-
-            if not url_r in results:
-                results.append(url_r)
-                new = True
-
-        start += len(resultlist)
-
-        # If there is no a new result, finish
-        if not new:
-            finished = True
-
-    # Show the results
-    if results:
-        print "\n\nGoogle has some results. Maybe you would like to check them manually:\n"
-
-        results.sort()
-        for r in results:
-            print "  *> %s" % (r)
-        print
-
-    else:
-        print "\n\nGoogle doesn't have any result. Sorry!\n"
+	
+	# 文件关闭
+	if hashfile:
+		try:
+			hashestocrack.close ()
+		except:
+			pass
+		
+	# Show a resume of all the cracked hashes
+	print "\n以下的hash已被破解:\n----------------------------------\n"
+	print crackedhashes and "\n".join ("%s -> %s" % (hashvalue, result.strip()) for hashvalue, result in crackedhashes) or "没有破解成功."
+	print
+	
+	return cracked
 
 
 ########################################################################################################
@@ -2842,57 +2469,57 @@ def searchHash(hashvalue):
 ########################################################################################################
 
 def main():
-    """Main method."""
+	"""Main method."""
 
-    ###################################################
-    # Syntax check
-    if len(sys.argv) < 4:
-        printSyntax()
-        sys.exit(1)
 
-    else:
-        try:
-            opts, args = getopt.getopt(sys.argv[2:], "gh:f:")
-        except:
-            printSyntax()
-            sys.exit(1)
+	###################################################
+	# Syntax check
+	if len (sys.argv) < 4:
+		printSyntax()
+		sys.exit(1)
+	
+	else:
+		try:
+			opts, args = getopt.getopt (sys.argv[2:], "gh:f:")
+		except:
+			printSyntax()
+			sys.exit(1)
+	
+	
+	###################################################
+	# Load input parameters
+	algorithm = sys.argv[1].lower()
+	hashvalue = None
+	hashfile  = None
+	googlesearch = False
+	
+	for opt, arg in opts:
+		if opt == '-h':
+			hashvalue = arg
+		elif opt == '-f':
+			hashfile = arg
+	
+	
+	###################################################
+	# Configure the Cookie Handler
+	configureCookieProcessor()
+	
+	# Initialize PRNG seed
+	seed()
+	
+	cracked = 0
+	
+	
+	###################################################
+	# Crack the hash/es
+	cracked = crackHash (algorithm, hashvalue, hashfile)
+	
+	###################################################
+	# App is finished
+	sys.exit()
 
-    ###################################################
-    # Load input parameters
-    algorithm = sys.argv[1].lower()
-    hashvalue = None
-    hashfile = None
-    googlesearch = False
-
-    for opt, arg in opts:
-        if opt == '-h':
-            hashvalue = arg
-        elif opt == '-f':
-            hashfile = arg
-        else:
-            googlesearch = True
-
-    ###################################################
-    # Configure the Cookie Handler
-    configureCookieProcessor()
-
-    # Initialize PRNG seed
-    seed()
-
-    cracked = 0
-
-    ###################################################
-    # Crack the hash/es
-    cracked = crackHash(algorithm, hashvalue, hashfile)
-
-    ###################################################
-    # Look for the hash in Google if it was not cracked
-    if not cracked and googlesearch and not hashfile:
-        searchHash(hashvalue)
-
-    # App is finished
-    sys.exit()
 
 
 if __name__ == "__main__":
     main()
+
