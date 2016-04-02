@@ -1,6 +1,6 @@
 # crackhash
 #这是一个破解hash值的python 脚本，方便我们平时做渗透时使用！
-crackHash.py 0.3 ( https://github.com/ym2011/penetration )
+crackHash.py 0.3 ( https://github.com/ym2011/crackhash )
 
 Usage: 
 ------
@@ -50,9 +50,7 @@ Usage:
    
   +++破解带有特定字符的JUNIPER  加密的密码
      python crackHash.py JUNIPER -h "\$9\$LbHX-wg4Z"
-  
-  +++如果无法破解该hash值，可以翻墙进行google搜索
-     python crackHash.py LDAP_SHA1 -h "{SHA}cRDtpNCeBiql5KOQsKVyrA0sAiA=" -g
+     
    
   +++破解多个hash 值，其中文件里面必须是一行一个hash值
      python crackHash.py MYSQL -f mysqlhashesfile.txt
