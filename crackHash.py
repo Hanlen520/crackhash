@@ -2,7 +2,7 @@
 #-*- coding:utf-8 -*-
 ########################################################################################################
 #
-# crackhash.py - v0.3 20160329
+# crackhash.py - v0.3 20160329  https://github.com/ym2011/crackhash
 #
 # 在线破解hash的小脚本。  
 # 
@@ -2239,7 +2239,7 @@ def do_HTTP_request (url, params={}, httpheaders={}):
 def printSyntax ():
 	"""Print application syntax."""
 	
-	print """%s 0.3 ( https://github.com/ym2011/penetration )
+	print """%s 0.3 ( https://github.com/ym2011/crackhash )
 
 Usage: 
 ------
@@ -2292,8 +2292,6 @@ Usage:
   +++破解带有特定字符的JUNIPER  加密的密码
      python %s JUNIPER -h "\$9\$LbHX-wg4Z"
   
-  +++如果无法破解该hash值，可以翻墙进行google搜索
-     python %s LDAP_SHA1 -h "{SHA}cRDtpNCeBiql5KOQsKVyrA0sAiA=" -g
    
   +++破解多个hash 值，其中文件里面必须是一行一个hash值
      python %s MYSQL -f mysqlhashesfile.txt
@@ -2301,7 +2299,7 @@ Usage:
 
 源代码:
 -----------------------------------
-https://github.com/ym2011/penetration
+https://github.com/ym2011/crackhash
 
 """ % ( (sys.argv[0],) * 8 )
 
