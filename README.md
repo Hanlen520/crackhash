@@ -60,4 +60,4 @@ Usage:
 
 源代码:
 -----------------------------------
-https://github.com/ym2011/penetration
+https://github.com/ym2011/crackhash
