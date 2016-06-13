@@ -2,7 +2,7 @@
 #-*- coding:utf-8 -*-
 ########################################################################################################
 #
-# crackhash.py - v0.3 20160329  https://github.com/ym2011/crackhash
+# crackhash.py - v0.3 20160613  https://github.com/ym2011/crackhash
 #
 # 在线破解hash的小脚本。  
 # 
@@ -19,7 +19,7 @@ try:
     from base64 import decodestring, encodestring
     from cookielib import LWPCookieJar
 except:
-    print """
+    print u '''
 运行出错:
 
   以下的python 库尚未安装：
@@ -38,7 +38,7 @@ except:
   
   easy_install httplib2
   
-"""
+'''
     sys.exit(1)
 
 try:
