@@ -1,5 +1,5 @@
 # crackhash
-#这是一个破解hash值的python 脚本，方便我们平时做渗透时使用！
+#这是一个破解hash值的python 脚本，方便安全人员平时做渗透时破解hash！
 crackHash.py 0.3 ( https://github.com/ym2011/crackhash )
 
 Usage: 
@@ -36,7 +36,7 @@ Usage:
 以下是有效的选项:
 ------------------
 
-  -h <hash 值>  如果只是想破解单一的hash值，可以使用该选项 和单一的hash 值
+  -h <hash 值>  如果只是想破解单一的hash值,可以使用该选项和单一的hash 值
 
   -f <文件>     如果想破解多个hash 值， 可以使用该选项，文件中每行一个hash值，并且hash 值必须是同一种类型的
 
@@ -44,15 +44,15 @@ Usage:
 使用举例:
 ---------
 
-  +++破解单一的hash 值
+  ---破解单一的hash 值
      python crackHash.py MD5 -h 098f6bcd4621d373cade4e832627b4f6
    
    
-  +++破解带有特定字符的JUNIPER  加密的密码
+  ---破解带有特定字符的JUNIPER  加密的密码
      python crackHash.py JUNIPER -h "\$9\$LbHX-wg4Z"
      
    
-  +++破解多个hash 值，其中文件里面必须是一行一个hash值
+  ---破解多个hash 值，其中文件里面必须是一行一个hash值
      python crackHash.py MYSQL -f mysqlhashesfile.txt
      
 
